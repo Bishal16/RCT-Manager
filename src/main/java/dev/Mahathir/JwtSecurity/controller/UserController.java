@@ -17,6 +17,8 @@ import java.util.Optional;
 //@RequestMapping("/rest/auth/")
 //@CrossOrigin(origins = "*")
 @CrossOrigin(origins = "http://localhost:3000")
+
+
 @AllArgsConstructor
 public class UserController {
     private  final ResponseService service;
