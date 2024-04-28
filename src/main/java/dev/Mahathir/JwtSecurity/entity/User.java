@@ -1,4 +1,4 @@
-package dev.Mahathir.JwtSecurity.user;
+package dev.Mahathir.JwtSecurity.entity;
 
 import dev.Mahathir.JwtSecurity.controller.dto.UserStatus;
 import jakarta.persistence.*;

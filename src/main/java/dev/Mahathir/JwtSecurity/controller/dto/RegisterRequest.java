@@ -1,18 +1,23 @@
 package dev.Mahathir.JwtSecurity.controller.dto;
 
-import dev.Mahathir.JwtSecurity.user.Role;
+import dev.Mahathir.JwtSecurity.entity.Role;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.sql.Date;
 
-public record RegisterRequest(
-        String firstName,
-        String lastName,
-        String email,
-        String password,
-        Date createdOn,
-        String phoneNo,
-        UserStatus userStatus,
-        Role role
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
+public class RegisterRequest{
+        private String firstName;
+        private String lastName;
+        private String email;
+        private String password;
+        private Date createdOn;
+        private String phoneNo;
+        private UserStatus userStatus;
+        private Role role;
 
-        ) {
 }

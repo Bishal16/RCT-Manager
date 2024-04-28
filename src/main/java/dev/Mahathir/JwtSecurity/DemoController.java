@@ -1,6 +1,6 @@
 package dev.Mahathir.JwtSecurity;
 
-import dev.Mahathir.JwtSecurity.user.User;
+import dev.Mahathir.JwtSecurity.entity.User;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,7 +10,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1/demo")
-public record DemoController() {
+public class DemoController {
 
 
     @GetMapping

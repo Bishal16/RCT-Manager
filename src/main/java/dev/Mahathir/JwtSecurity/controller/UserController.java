@@ -3,7 +3,7 @@ package dev.Mahathir.JwtSecurity.controller;
 import dev.Mahathir.JwtSecurity.service.ResponseService;
 import dev.Mahathir.JwtSecurity.repo.UserInfoRepo;
 import dev.Mahathir.JwtSecurity.service.TokenBlackListService;
-import dev.Mahathir.JwtSecurity.user.User;
+import dev.Mahathir.JwtSecurity.entity.User;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;

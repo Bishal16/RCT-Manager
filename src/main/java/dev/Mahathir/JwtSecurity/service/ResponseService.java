@@ -2,7 +2,7 @@ package dev.Mahathir.JwtSecurity.service;
 
 
 import dev.Mahathir.JwtSecurity.repo.UserInfoRepo;
-import dev.Mahathir.JwtSecurity.user.User;
+import dev.Mahathir.JwtSecurity.entity.User;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

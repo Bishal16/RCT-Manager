@@ -1,4 +1,13 @@
 package dev.Mahathir.JwtSecurity.controller.dto;
 
-public record AuthenticationRequest(String email, String password) {
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
+public class AuthenticationRequest{
+    private String email;
+    private String password;
 }

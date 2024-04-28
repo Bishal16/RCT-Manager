@@ -1,6 +1,6 @@
 package dev.Mahathir.JwtSecurity.repo;
 
-import dev.Mahathir.JwtSecurity.user.User;
+import dev.Mahathir.JwtSecurity.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
