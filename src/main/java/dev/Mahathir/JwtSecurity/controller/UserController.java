@@ -48,9 +48,9 @@ public class UserController {
     ResponseEntity<?> editUser(@PathVariable("id") Integer id, @RequestBody User user){
         try{
             service.editUser(id, user);
-            return new ResponseEntity<>("User edited successfully", HttpStatus.OK);
+            return new ResponseEntity<>("User updated successfully", HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<>("Failed to edit user", HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
