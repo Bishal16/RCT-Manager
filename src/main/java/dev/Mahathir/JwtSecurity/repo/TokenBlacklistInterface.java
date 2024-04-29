@@ -1,6 +1,6 @@
 package dev.Mahathir.JwtSecurity.repo;
 
-public interface TokenBlacklist {
+public interface TokenBlacklistInterface {
     void addToBlacklist(String token);
     boolean isBlacklisted(String token);
 }

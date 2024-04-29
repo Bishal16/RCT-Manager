@@ -1,6 +1,9 @@
 package dev.Mahathir.JwtSecurity.config;
 
+import dev.Mahathir.JwtSecurity.repo.TokenBlackListRepo;
 import dev.Mahathir.JwtSecurity.repo.UserInfoRepo;
+import dev.Mahathir.JwtSecurity.service.TokenBlackListService;
+import dev.Mahathir.JwtSecurity.service.TokenBlacklistChecker;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationListener;
@@ -30,8 +33,12 @@ public class SecurityConfiguration {
 
     private final UserInfoRepo userRepository;
 
-    public SecurityConfiguration(UserInfoRepo userRepository) {
+    private final TokenBlackListRepo tokenBlackListRepo;
+
+    public SecurityConfiguration(UserInfoRepo userRepository,
+                                 TokenBlackListRepo tokenBlackListRepo) {
         this.userRepository = userRepository;
+        this.tokenBlackListRepo = tokenBlackListRepo;
     }
 
 
@@ -61,9 +68,13 @@ public class SecurityConfiguration {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authenticationProvider(authenticationProvider())
-                .addFilterBefore(new JwtAuthenticationFilter(userDetailsService()), UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(new JwtAuthenticationFilter(userDetailsService(), tokenBlackListChecker()), UsernamePasswordAuthenticationFilter.class)
                 .build();
 
+    }
+    @Bean
+    public TokenBlacklistChecker tokenBlackListChecker() {
+        return token -> tokenBlackListRepo.findByToken(token).isPresent();
     }
 
     @Bean
@@ -101,4 +112,5 @@ public class SecurityConfiguration {
             log.info("LOGIN SUCCESSFUL [{}] - {}", auth.getClass().getSimpleName(), auth.getName());
         };
     }
+
 }

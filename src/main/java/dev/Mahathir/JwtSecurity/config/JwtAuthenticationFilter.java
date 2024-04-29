@@ -1,6 +1,7 @@
 package dev.Mahathir.JwtSecurity.config;
 
 import dev.Mahathir.JwtSecurity.service.TokenBlackListService;
+import dev.Mahathir.JwtSecurity.service.TokenBlacklistChecker;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -16,10 +17,13 @@ import java.io.IOException;
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private final UserDetailsService userDetailsService;
+    private final TokenBlacklistChecker tokenBlacklistChecker;
 
 
-    public JwtAuthenticationFilter(UserDetailsService userDetailsService) {
+    public JwtAuthenticationFilter(UserDetailsService userDetailsService,
+                                   TokenBlacklistChecker tokenBlacklistChecker) {
         this.userDetailsService = userDetailsService;
+        this.tokenBlacklistChecker = tokenBlacklistChecker;
     }
 //    public JwtAuthenticationFilter(InMemoryTokenBlacklist inMemoryTokenBlacklist) {
 //        this.inMemoryTokenBlacklist = inMemoryTokenBlacklist;
@@ -45,9 +49,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 //        }
         var userEmail = JwtService.extractUsername(jwt);
         if (userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-            if (TokenBlackListService.isBlacklisted(jwt)) System.err.println("Token on blackList");
+            if (tokenBlacklistChecker.isBlacklisted(jwt)) System.err.println("Token on blackList");
             final var userDetails = userDetailsService.loadUserByUsername(userEmail);
-            if (JwtService.isTokenValid(jwt, userDetails) && !TokenBlackListService.isBlacklisted(jwt)) {
+            if (JwtService.isTokenValid(jwt, userDetails) && !tokenBlacklistChecker.isBlacklisted(jwt)) {
                 final var authToken = new UsernamePasswordAuthenticationToken(
                         userDetails,
                         null,

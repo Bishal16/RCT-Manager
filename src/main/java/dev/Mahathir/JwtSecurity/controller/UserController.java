@@ -20,7 +20,8 @@ import java.util.Optional;
 public class UserController {
     private  final ResponseService service;
     private  final UserInfoRepo userInfoRepoService;
-    private  final TokenBlackListService inMemoryTokenBlacklist;
+    private  final TokenBlackListService tokenBlackListService;
+
 //    private final RoleRepository roleInfoRepo;
 
 
@@ -65,7 +66,7 @@ public class UserController {
     @PostMapping("/logOut")
     public ResponseEntity<String> logout(HttpServletRequest request) {
         String token = service.extractTokenFromRequest(request);
-        inMemoryTokenBlacklist.addToBlacklist(token);
+        tokenBlackListService.addToBlacklist(token);
         return ResponseEntity.ok("Logged out/blacklisted successfully");
     }
 }
