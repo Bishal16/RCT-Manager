@@ -24,7 +24,7 @@ public class AuthenticationService {
     public AuthenticationResponse register(RegisterRequest request) {
         LocalDate localDate = LocalDate.now();
         Date date = Date.valueOf(localDate);
-        //userData.setCreatedOn(date);
+        //userData.setCreatedOn(date);.
 
 
         final var user = new User(null,

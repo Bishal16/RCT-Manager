@@ -1,5 +1,6 @@
 package dev.Mahathir.JwtSecurity.config;
 
+import dev.Mahathir.JwtSecurity.entity.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -24,22 +25,21 @@ public class JwtService {
         return extractClaim(token, Claims::getSubject);
     }
 
-    public static String generateToken(
-            Map<String, Object> extractClaim,
-            UserDetails userDetails
-    ) {
+    public static String generateToken1(User user) {
+        Claims claims  = Jwts.claims();
+        claims.put("roles", user.getRole());
         return Jwts
                 .builder()
-                .setClaims(extractClaim)
-                .setSubject(userDetails.getUsername())
+                .setClaims(claims)
+                .setSubject(user.getUsername())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 24))
                 .signWith(getSigningKey(), SignatureAlgorithm.HS256)
                 .compact();
     }
 
-    public static String generateToken(UserDetails userDetails) {
-        return generateToken(new HashMap<>(), userDetails);
+    public static String generateToken(User user) {
+        return generateToken1( user);
     }
 
     public static boolean isTokenValid(
