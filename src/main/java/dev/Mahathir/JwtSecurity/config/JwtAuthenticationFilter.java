@@ -47,7 +47,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         var userEmail = JwtService.extractUsername(jwt);
         if (userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null) {
 
-            if (tokenBlacklistChecker.isBlacklisted(jwt)) System.err.println("Token on blackList");
+            if (tokenBlacklistChecker.isBlacklisted(jwt)) {
+                System.err.println("Token on blackList");
+                throw new ServletException("Invalid token"); /////////////////////////////////////////---------------------------needs work
+            }
 
             final var userDetails = userDetailsService.loadUserByUsername(userEmail);
 

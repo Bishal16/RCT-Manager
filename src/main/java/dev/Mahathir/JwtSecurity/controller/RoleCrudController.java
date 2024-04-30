@@ -1,12 +1,12 @@
 package dev.Mahathir.JwtSecurity.controller;
 
+import dev.Mahathir.JwtSecurity.entity.Role;
 import dev.Mahathir.JwtSecurity.service.RoleCrudService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @AllArgsConstructor
@@ -16,5 +16,10 @@ public class RoleCrudController {
     @PostMapping("/createRole")
     ResponseEntity<String> createRole(@RequestParam String name){
         return roleCrudService.createRole(name);
+    }
+
+    @GetMapping("/getRoles")
+    ResponseEntity<List<Role>> getRoles(){
+        return roleCrudService.getRoles();
     }
 }
