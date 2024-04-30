@@ -27,7 +27,7 @@ public class UserController {
 
     @GetMapping("/greet")
     String greetUser(){
-        return "greet";
+        return "greetings";
     }
 
 //    @PostMapping("/addUser")
