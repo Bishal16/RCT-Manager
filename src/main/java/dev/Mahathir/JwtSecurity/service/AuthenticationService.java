@@ -3,10 +3,14 @@ package dev.Mahathir.JwtSecurity.service;
 import dev.Mahathir.JwtSecurity.controller.dto.AuthenticationRequest;
 import dev.Mahathir.JwtSecurity.controller.dto.AuthenticationResponse;
 import dev.Mahathir.JwtSecurity.controller.dto.RegisterRequest;
+import dev.Mahathir.JwtSecurity.entity.Role;
+import dev.Mahathir.JwtSecurity.repo.RoleRepository;
 import dev.Mahathir.JwtSecurity.repo.UserInfoRepo;
 import dev.Mahathir.JwtSecurity.entity.User;
 import dev.Mahathir.JwtSecurity.config.JwtService;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -14,32 +18,47 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
 public class AuthenticationService {
-    private UserInfoRepo userRepository;
-    private PasswordEncoder passwordEncoder;
-    private AuthenticationManager authenticationManager;
-    public AuthenticationResponse register(RegisterRequest request) {
-        LocalDate localDate = LocalDate.now();
-        Date date = Date.valueOf(localDate);
-        //userData.setCreatedOn(date);.
+    private final UserInfoRepo userRepository;
+    private final PasswordEncoder passwordEncoder;
+    private final AuthenticationManager authenticationManager;
+    private final RoleRepository roleRepository;
+    public ResponseEntity<String> register(RegisterRequest request) {
+        try{
+            LocalDate localDate = LocalDate.now();
+            Date date = Date.valueOf(localDate);
 
+            List<Role> validRoles = new ArrayList<>();
+            for (Role requestRole : request.getRoles()) {
+                Optional<Role> validRole = roleRepository.findByName(requestRole.getName());
+                if(validRole.isEmpty()) throw new Exception("Role does not exist in Database");
+                validRoles.add(validRole.get());
+            }
 
-        final var user = new User(null,
-                request.getFirstName(),
-                request.getLastName(),
-                request.getEmail(),
-                passwordEncoder.encode(request.getPassword()),
-                request.getRole(),
-                date, // current date created on
-                request.getPhoneNo(),
-                request.getUserStatus()
-        );
-        userRepository.save(user);
-        final var token = JwtService.generateToken(user);
-        return new AuthenticationResponse(token);
+            final var user = new User(null,
+                    request.getFirstName(),
+                    request.getLastName(),
+                    request.getEmail(),
+                    passwordEncoder.encode(request.getPassword()),
+                    date, // current date created on
+                    request.getPhoneNo(),
+                    request.getUserStatus(),
+                    validRoles
+            );
+            userRepository.save(user);
+           // final var token = JwtService.generateToken(user);
+            return new ResponseEntity<>("REGISTERED", HttpStatus.CREATED);
+        }
+        catch(Exception e){
+            System.err.println(e.getMessage());
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
     }
 
     public AuthenticationResponse authenticate(AuthenticationRequest request) {

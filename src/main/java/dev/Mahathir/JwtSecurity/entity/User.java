@@ -7,12 +7,15 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
-@Table(name = "_user")
+@Table(name = "user")
 @Entity
 @Data
 @NoArgsConstructor
@@ -21,41 +24,47 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue
     private Integer id;
+
     @Column(nullable = false)
     private String firstName;
+
     @Column(nullable = false)
     private String lastName;
+
     @Column(nullable = false, unique = true)
     private String email;
+
     @Column(nullable = false)
     private String password;
-    @Enumerated(EnumType.STRING)
-    Role role;
+
     @Column(nullable = false)
     private Date createdOn;
+
     @Column(nullable = false, unique = true)
     private String phoneNo;
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private UserStatus userStatus;
 
 
+    @ManyToMany(fetch = FetchType.EAGER,
+            cascade = {
+                    CascadeType.PERSIST, CascadeType.MERGE
+            }
+    )
+    List<Role> roles;
 
-//    public User(Integer id, String firstname, String lastname, String email, String passwd, Role role) {
-//        this.id = id;
-//        this.firstname = firstname;
-//        this.lastname = lastname;
-//        this.email = email;
-//        this.passwd = passwd;
-//        this.role = role;
-//    }
 
 
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return AuthorityUtils.createAuthorityList(role.name());
-        //return List.of(new SimpleGrantedAuthority(role.name()));
+        List<GrantedAuthority> authorities = new ArrayList<>();
+        for(Role role: roles){
+            authorities.add(new SimpleGrantedAuthority(role.getName()));
+        }
+        return authorities;
     }
 
     @Override
