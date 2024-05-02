@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -70,8 +71,8 @@ public class AuthenticationService {
                 )
         );
         final var user = userRepository.findByEmail(request.getEmail()).orElseThrow();
+        List<Role> roles = user.getRoles();
         final var token = JwtService.generateToken(user);
-        return new AuthenticationResponse(token);
-
+        return new AuthenticationResponse(token, roles, LocalDateTime.now());
     }
 }
