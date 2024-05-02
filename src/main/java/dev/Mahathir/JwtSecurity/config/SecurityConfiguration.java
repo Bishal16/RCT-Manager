@@ -6,6 +6,7 @@ import dev.Mahathir.JwtSecurity.service.TokenBlackListService;
 import dev.Mahathir.JwtSecurity.service.TokenBlacklistChecker;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -35,6 +36,7 @@ public class SecurityConfiguration {
 
     private final TokenBlackListRepo tokenBlackListRepo;
 
+    @Autowired
     public SecurityConfiguration(UserInfoRepo userRepository,
                                  TokenBlackListRepo tokenBlackListRepo) {
         this.userRepository = userRepository;
@@ -45,27 +47,15 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
-                .csrf()
-                .disable()
+                .csrf().disable()
                 .authorizeHttpRequests()
                 .requestMatchers(
-//                        AntPathRequestMatcher
-//                                .antMatcher("/"),
-                        AntPathRequestMatcher
-                                .antMatcher("/error"),
-                        AntPathRequestMatcher
-                                .antMatcher("/favicon.ico"),
-                        AntPathRequestMatcher
-                                .antMatcher("/actuator/*"),
                         AntPathRequestMatcher
                                 .antMatcher("/auth/**")
-                )
-                .permitAll()
-                .anyRequest()
-                .authenticated()
+                ).permitAll()
+                .anyRequest().authenticated()
                 .and()
-                .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authenticationProvider(authenticationProvider())
                 .addFilterBefore(new JwtAuthenticationFilter(userDetailsService(), tokenBlackListChecker()), UsernamePasswordAuthenticationFilter.class)

@@ -20,7 +20,6 @@ public class RoleCrudService {
             role.setName(name);
             roleRepository.save(role);
             return new ResponseEntity<>("Created", HttpStatus.CREATED);
-
         }
         catch (Exception e){
             System.err.println(e.getMessage());

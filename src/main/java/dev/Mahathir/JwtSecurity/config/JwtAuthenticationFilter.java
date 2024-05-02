@@ -25,9 +25,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         this.userDetailsService = userDetailsService;
         this.tokenBlacklistChecker = tokenBlacklistChecker;
     }
-//    public JwtAuthenticationFilter(InMemoryTokenBlacklist inMemoryTokenBlacklist) {
-//        this.inMemoryTokenBlacklist = inMemoryTokenBlacklist;
-//    }
+
     @Override
     protected void doFilterInternal(
             HttpServletRequest request,

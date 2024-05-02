@@ -14,12 +14,12 @@ import java.util.List;
 public class RoleCrudController {
     private final RoleCrudService roleCrudService;
     @PostMapping("/createRole")
-    ResponseEntity<String> createRole(@RequestParam String name){
+    public ResponseEntity<String> createRole(@RequestParam String name){
         return roleCrudService.createRole(name);
     }
 
     @GetMapping("/getRoles")
-    ResponseEntity<List<Role>> getRoles(){
+    public ResponseEntity<List<Role>> getRoles(){
         return roleCrudService.getRoles();
     }
 }
