@@ -1,5 +1,6 @@
 package dev.Mahathir.JwtSecurity.controller;
 
+import dev.Mahathir.JwtSecurity.controller.dto.PermissionListRequest;
 import dev.Mahathir.JwtSecurity.entity.Role;
 import dev.Mahathir.JwtSecurity.service.RoleCrudService;
 import lombok.AllArgsConstructor;
@@ -27,8 +28,8 @@ public class RoleCrudController {
     public ResponseEntity<String> deleteRole(@PathVariable Integer id) { return roleCrudService.deleteRole(id); }
 
     @PostMapping("/setRolePermissions/{roleId}")
-    public ResponseEntity<String> setRolePermissions(@PathVariable Integer roleId, @RequestBody List<Integer> permissionIdList){
-        return roleCrudService.setRolePermissions(roleId, permissionIdList);
+    public ResponseEntity<String> setRolePermissions(@PathVariable Integer roleId, @RequestBody PermissionListRequest permissionListRequest){
+        return roleCrudService.setRolePermissions(roleId, permissionListRequest.getPermissionIdList());
     }
 
 }
