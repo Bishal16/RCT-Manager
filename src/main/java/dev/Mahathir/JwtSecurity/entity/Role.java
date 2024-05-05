@@ -1,5 +1,6 @@
 package dev.Mahathir.JwtSecurity.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -14,5 +15,10 @@ public class Role {
 
     @Column(unique = true)
     private String name;
+
+    @JsonIgnore
+    @ManyToMany(fetch = FetchType.LAZY,
+                cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    List<Permission> permissions;
 
 }

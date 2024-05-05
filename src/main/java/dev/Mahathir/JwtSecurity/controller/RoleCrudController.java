@@ -22,4 +22,13 @@ public class RoleCrudController {
     public ResponseEntity<List<Role>> getRoles(){
         return roleCrudService.getRoles();
     }
+
+    @DeleteMapping("/deleteRole/{id}")
+    public ResponseEntity<String> deleteRole(@PathVariable Integer id) { return roleCrudService.deleteRole(id); }
+
+    @PostMapping("/setRolePermissions/{roleId}")
+    public ResponseEntity<String> setRolePermissions(@PathVariable Integer roleId, @RequestBody List<Integer> permissionIdList){
+        return roleCrudService.setRolePermissions(roleId, permissionIdList);
+    }
+
 }
