@@ -6,7 +6,6 @@ import dev.Mahathir.JwtSecurity.repo.PermissionRepository;
 import dev.Mahathir.JwtSecurity.repo.RoleRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -17,10 +16,11 @@ import java.util.List;
 public class RoleCrudService {
     private final RoleRepository roleRepository;
     private final PermissionRepository permissionRepository;
-    public ResponseEntity<String> createRole(String name) {
+    public ResponseEntity<String> createRole(Role roleOnRequest) {
         try{
             Role role = new Role();
-            role.setName(name);
+            role.setName(roleOnRequest.getName());
+            role.setDescription(roleOnRequest.getDescription());
             roleRepository.save(role);
             return new ResponseEntity<>("Created", HttpStatus.CREATED);
         }

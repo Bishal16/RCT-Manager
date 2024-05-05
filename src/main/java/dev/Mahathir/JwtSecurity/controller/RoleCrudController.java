@@ -15,8 +15,8 @@ import java.util.List;
 public class RoleCrudController {
     private final RoleCrudService roleCrudService;
     @PostMapping("/createRole")
-    public ResponseEntity<String> createRole(@RequestParam String name){
-        return roleCrudService.createRole(name);
+    public ResponseEntity<String> createRole(@RequestBody Role role){
+        return roleCrudService.createRole(role);
     }
 
     @GetMapping("/getRoles")
