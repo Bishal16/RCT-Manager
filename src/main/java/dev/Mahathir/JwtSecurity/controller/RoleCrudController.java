@@ -24,6 +24,11 @@ public class RoleCrudController {
         return roleCrudService.getRoles();
     }
 
+    @GetMapping("/getRole/{id}")
+    public ResponseEntity<Role> getRoleById(@PathVariable Integer id){
+        return roleCrudService.getRole(id);
+    }
+
     @DeleteMapping("/deleteRole/{id}")
     public ResponseEntity<String> deleteRole(@PathVariable Integer id) { return roleCrudService.deleteRole(id); }
 
@@ -31,5 +36,6 @@ public class RoleCrudController {
     public ResponseEntity<String> setRolePermissions(@PathVariable Integer roleId, @RequestBody PermissionListRequest permissionListRequest){
         return roleCrudService.setRolePermissions(roleId, permissionListRequest.getPermissionIdList());
     }
+
 
 }

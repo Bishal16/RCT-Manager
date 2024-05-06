@@ -27,4 +27,14 @@ public class PermissionCrudController {
     public ResponseEntity<List<Permission>> getPermissions(){
         return permissionService.getPermissions();
     }
+
+    @GetMapping("/getPermission/{id}")
+    public ResponseEntity<Permission> getPermission(@PathVariable Integer id){
+        return permissionService.getPermission(id);
+    }
+
+    @PutMapping("/editPermission")
+    public ResponseEntity<String> editPermission(@RequestBody Permission permission){
+        return permissionService.editPermission(permission);
+    }
 }

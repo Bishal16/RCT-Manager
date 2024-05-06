@@ -7,8 +7,6 @@ import jakarta.persistence.Id;
 import lombok.Data;
 
 @Data
-//@AllArgsConstructor
-//@NoArgsConstructor
 @Entity
 public class TokenBlacklist {
     @Id

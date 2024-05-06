@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 
 @Service
 @AllArgsConstructor
@@ -49,7 +50,7 @@ public class RoleCrudService {
         try{
             Role validRole = roleRepository.findById(roleId).orElseThrow(() -> new Exception("Invalid Role Id"));
 
-            List<Permission> permissions = validRole.getPermissions();
+            Set<Permission> permissions = validRole.getPermissions();
 
             for(Integer permissionId : permissionIdList){
                 Permission validPermission = permissionRepository.findById(permissionId).orElseThrow(() -> new Exception(("No Permission with Id - " + permissionId)));
@@ -63,6 +64,17 @@ public class RoleCrudService {
         }catch (Exception e){
             System.err.println(e.getMessage());
             return new ResponseEntity<>("Failed", HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    public ResponseEntity<Role> getRole(Integer id) {
+        try {
+            Role role = roleRepository.findById(id).orElseThrow(() -> new Exception("Role does not exist"));
+            return new ResponseEntity<>(role, HttpStatus.OK);
+        }
+        catch (Exception e){
+            System.err.println(e.getMessage());
+            return new ResponseEntity<>(new Role(), HttpStatus.NOT_FOUND);
         }
     }
 }

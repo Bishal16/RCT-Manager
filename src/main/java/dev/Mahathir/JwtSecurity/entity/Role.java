@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Data
@@ -19,8 +20,14 @@ public class Role {
     private String description;
 
     @JsonIgnore
+
     @ManyToMany(fetch = FetchType.LAZY,
-                cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-    List<Permission> permissions;
+                cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH }
+    )
+    @JoinTable(
+            joinColumns = @JoinColumn(name = "Role_id"),
+            inverseJoinColumns = @JoinColumn(name = "Permission_id")
+    )
+    private Set<Permission> permissions;
 
 }
