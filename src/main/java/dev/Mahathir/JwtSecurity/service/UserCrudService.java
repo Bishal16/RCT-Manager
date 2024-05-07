@@ -60,6 +60,7 @@ public class UserCrudService {
 
     public ResponseEntity<String> deleteUserById(Integer id) {
         try{
+            if(userRepo.findById(id).isEmpty()) throw new Exception("No user with provided id");
             userRepo.deleteById(id);
             return new ResponseEntity<>("User deleted successfully", HttpStatus.OK);
         } catch (Exception e) {
