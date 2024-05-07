@@ -29,6 +29,7 @@ public class PermissionCrudService {
 
     public ResponseEntity<String> deletePermission(Integer id) {
         try{
+            if(permissionRepo.findById(id).isEmpty()) throw new Exception("No Permission with provided id");
             permissionRepo.deleteById(id);
             return new ResponseEntity<>("DELETED", HttpStatus.OK);
         }catch (Exception e){

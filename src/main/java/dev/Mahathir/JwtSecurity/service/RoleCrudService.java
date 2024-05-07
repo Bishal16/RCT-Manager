@@ -37,6 +37,7 @@ public class RoleCrudService {
 
     public ResponseEntity<String> deleteRole(Integer id) {
         try{
+            if(roleRepository.findById(id).isEmpty()) throw new Exception("No role exists with this id");
             roleRepository.deleteById(id);
             return new ResponseEntity<>("Role Deleted", HttpStatus.OK);
         }catch (Exception e) {

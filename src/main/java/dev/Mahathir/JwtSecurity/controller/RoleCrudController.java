@@ -19,17 +19,17 @@ public class RoleCrudController {
         return roleCrudService.createRole(role);
     }
 
-    @GetMapping("/getRoles")
+    @PostMapping("/getRoles")
     public ResponseEntity<List<Role>> getRoles(){
         return roleCrudService.getRoles();
     }
 
-    @GetMapping("/getRole/{id}")
+    @PostMapping("/getRole/{id}")
     public ResponseEntity<Role> getRoleById(@PathVariable Integer id){
         return roleCrudService.getRole(id);
     }
 
-    @DeleteMapping("/deleteRole/{id}")
+    @PostMapping("/deleteRole/{id}")
     public ResponseEntity<String> deleteRole(@PathVariable Integer id) { return roleCrudService.deleteRole(id); }
 
     @PostMapping("/setRolePermissions/{roleId}")

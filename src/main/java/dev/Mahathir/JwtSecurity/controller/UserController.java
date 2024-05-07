@@ -22,28 +22,28 @@ public class UserController {
     private  final TokenBlackListService tokenBlackListService;
 
 
-    @GetMapping("/greet")
+    @PostMapping("/greet")
     String greetUser(){
         return "greetings";
     }
 
 
-    @DeleteMapping("removeUser/{id}")
+    @PostMapping("deleteUser/{id}")
     public ResponseEntity<String> deleteUserById(@PathVariable("id") Integer id){
         return userCrudService.deleteUserById(id);
 
     }
 
-    @PutMapping("editUser/{id}")
+    @PostMapping("editUser/{id}")
     public ResponseEntity<String> editUser(@PathVariable("id") Integer id, @RequestBody User user){
         return userCrudService.editUser(id, user);
     }
 
-    @GetMapping("/allUser")
+    @PostMapping("/getUsers")
     public ResponseEntity<List<User>> getAllUser (){
         return userCrudService.getAllUser();
     }
-    @GetMapping("/user/{id}")
+    @PostMapping("/getUser/{id}")
     public ResponseEntity<Object> getUser (@PathVariable Integer id){
         return userCrudService.getUser(id);
     }

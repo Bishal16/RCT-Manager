@@ -18,22 +18,22 @@ public class PermissionCrudController {
         return permissionService.createPermission(permission);
     }
 
-    @DeleteMapping("/deletePermission/{id}")
+    @PostMapping("/deletePermission/{id}")
     public ResponseEntity<String> deletePermission(@PathVariable Integer id){
         return permissionService.deletePermission(id);
     }
 
-    @GetMapping("/getPermissions")
+    @PostMapping("/getPermissions")
     public ResponseEntity<List<Permission>> getPermissions(){
         return permissionService.getPermissions();
     }
 
-    @GetMapping("/getPermission/{id}")
+    @PostMapping("/getPermission/{id}")
     public ResponseEntity<Permission> getPermission(@PathVariable Integer id){
         return permissionService.getPermission(id);
     }
 
-    @PutMapping("/editPermission")
+    @PostMapping("/editPermission")
     public ResponseEntity<String> editPermission(@RequestBody Permission permission){
         return permissionService.editPermission(permission);
     }
