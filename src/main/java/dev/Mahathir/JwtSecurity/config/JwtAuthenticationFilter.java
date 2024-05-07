@@ -25,9 +25,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         this.userDetailsService = userDetailsService;
         this.tokenBlacklistChecker = tokenBlacklistChecker;
     }
-//    public JwtAuthenticationFilter(InMemoryTokenBlacklist inMemoryTokenBlacklist) {
-//        this.inMemoryTokenBlacklist = inMemoryTokenBlacklist;
-//    }
+
     @Override
     protected void doFilterInternal(
             HttpServletRequest request,
@@ -35,22 +33,25 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             FilterChain filterChain
     ) throws ServletException, IOException {
 
+
         final var header = request.getHeader("Authorization");
         if (header == null || !header.startsWith("Bearer ")) {
+            //System.err.println("Header problem");
             filterChain.doFilter(request, response);
             return;
         }
         final var jwt = header.substring(7);
-//        if(TokenBlacklistValidator.isBlacklisted(jwt)){
-//            ;//invalid token
-//        }
-//        if(TokenBlacklistValidator.isBlacklisted(jwt.toString())){
-//
-//        }
+
         var userEmail = JwtService.extractUsername(jwt);
         if (userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-            if (tokenBlacklistChecker.isBlacklisted(jwt)) System.err.println("Token on blackList");
+
+            if (tokenBlacklistChecker.isBlacklisted(jwt)) {
+                System.err.println("Token on blackList");
+                throw new ServletException("Invalid token"); /////////////////////////////////////////---------------------------needs work
+            }
+
             final var userDetails = userDetailsService.loadUserByUsername(userEmail);
+
             if (JwtService.isTokenValid(jwt, userDetails) && !tokenBlacklistChecker.isBlacklisted(jwt)) {
                 final var authToken = new UsernamePasswordAuthenticationToken(
                         userDetails,

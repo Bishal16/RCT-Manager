@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.sql.Date;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -18,6 +19,6 @@ public class RegisterRequest{
         private Date createdOn;
         private String phoneNo;
         private UserStatus userStatus;
-        private Role role;
+        private List<Role> roles;
 
 }

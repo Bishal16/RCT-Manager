@@ -1,5 +1,33 @@
 package dev.Mahathir.JwtSecurity.entity;
 
-public enum Role {
-    USER, ADMIN
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
+import lombok.Data;
+
+import java.util.List;
+import java.util.Set;
+
+@Entity
+@Data
+public class Role {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
+    @Column(unique = true)
+    private String name;
+    @Column(nullable = true)
+    private String description;
+
+    @JsonIgnore
+
+    @ManyToMany(fetch = FetchType.LAZY,
+                cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH }
+    )
+    @JoinTable(
+            joinColumns = @JoinColumn(name = "Role_id"),
+            inverseJoinColumns = @JoinColumn(name = "Permission_id")
+    )
+    private Set<Permission> permissions;
+
 }

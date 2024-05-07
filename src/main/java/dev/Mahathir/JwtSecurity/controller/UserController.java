@@ -1,6 +1,6 @@
 package dev.Mahathir.JwtSecurity.controller;
 
-import dev.Mahathir.JwtSecurity.service.ResponseService;
+import dev.Mahathir.JwtSecurity.service.UserCrudService;
 import dev.Mahathir.JwtSecurity.repo.UserInfoRepo;
 import dev.Mahathir.JwtSecurity.service.TokenBlackListService;
 import dev.Mahathir.JwtSecurity.entity.User;
@@ -18,11 +18,8 @@ import java.util.Optional;
 
 @AllArgsConstructor
 public class UserController {
-    private  final ResponseService service;
-    private  final UserInfoRepo userInfoRepoService;
+    private  final UserCrudService userCrudService;
     private  final TokenBlackListService tokenBlackListService;
-
-//    private final RoleRepository roleInfoRepo;
 
 
     @GetMapping("/greet")
@@ -30,42 +27,31 @@ public class UserController {
         return "greetings";
     }
 
-//    @PostMapping("/addUser")
-//    ResponseEntity<String> createUser(@RequestBody User userData){
-//        return service.createNewUser(userData);
-//    }
 
     @DeleteMapping("removeUser/{id}")
-    ResponseEntity<?> deleteUserById(@PathVariable("id") Integer id){
-        try{
-            userInfoRepoService.deleteById(id);
-            return new ResponseEntity<>("User deleted successfully", HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>("Failed to delete user", HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+    public ResponseEntity<String> deleteUserById(@PathVariable("id") Integer id){
+        return userCrudService.deleteUserById(id);
+
     }
 
     @PutMapping("editUser/{id}")
-    ResponseEntity<?> editUser(@PathVariable("id") Integer id, @RequestBody User user){
-        try{
-            service.editUser(id, user);
-            return new ResponseEntity<>("User updated successfully", HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+    public ResponseEntity<String> editUser(@PathVariable("id") Integer id, @RequestBody User user){
+        return userCrudService.editUser(id, user);
     }
 
     @GetMapping("/allUser")
-    List<User> getAllUser (){
-        return userInfoRepoService.findAll();
+    public ResponseEntity<List<User>> getAllUser (){
+        return userCrudService.getAllUser();
     }
     @GetMapping("/user/{id}")
-    Optional<User> getUser (@PathVariable Integer id){
-        return userInfoRepoService.findById(id);
+    public ResponseEntity<Object> getUser (@PathVariable Integer id){
+        return userCrudService.getUser(id);
     }
-    @PostMapping("/logOut")
+
+
+    @PostMapping("/logOut")//----------------------------------------------------------------------------------could be handled somewhere else
     public ResponseEntity<String> logout(HttpServletRequest request) {
-        String token = service.extractTokenFromRequest(request);
+        String token = userCrudService.extractTokenFromRequest(request);
         tokenBlackListService.addToBlacklist(token);
         return ResponseEntity.ok("Logged out/blacklisted successfully");
     }

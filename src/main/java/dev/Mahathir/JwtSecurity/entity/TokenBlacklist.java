@@ -7,14 +7,10 @@ import jakarta.persistence.Id;
 import lombok.Data;
 
 @Data
-//@AllArgsConstructor
-//@NoArgsConstructor
 @Entity
 public class TokenBlacklist {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private  Integer id;
     private String token;
-
-
 }

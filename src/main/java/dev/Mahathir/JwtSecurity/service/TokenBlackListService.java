@@ -20,10 +20,4 @@ public class TokenBlackListService {
     }
 
 
-//    public boolean isBlacklisted(String token) {
-//        return tokenBlackListRepo.findByToken(token).isPresent();
-////        return blacklist.contains(token);
-//    }
-
-
 }
