@@ -19,9 +19,7 @@ import org.springframework.stereotype.Service;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @AllArgsConstructor
@@ -35,7 +33,7 @@ public class AuthenticationService {
             LocalDate localDate = LocalDate.now();
             Date date = Date.valueOf(localDate);
 
-            List<Role> validRoles = new ArrayList<>();
+            Set<Role> validRoles = new HashSet<>();
             for (Role requestRole : request.getRoles()) {
                 Optional<Role> validRole = roleRepository.findByName(requestRole.getName());
                 if(validRole.isEmpty()) throw new Exception("Role does not exist in Database");
@@ -71,7 +69,7 @@ public class AuthenticationService {
                 )
         );
         final var user = userRepository.findByEmail(request.getEmail()).orElseThrow();
-        List<Role> roles = user.getRoles();
+        Set<Role> roles = user.getRoles();
         final var token = JwtService.generateToken(user);
         return new AuthenticationResponse(token, roles, LocalDateTime.now());
     }

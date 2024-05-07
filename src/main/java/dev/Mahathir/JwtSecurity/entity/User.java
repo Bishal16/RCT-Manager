@@ -1,5 +1,6 @@
 package dev.Mahathir.JwtSecurity.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import dev.Mahathir.JwtSecurity.controller.dto.UserStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -14,6 +15,7 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 @Table(name = "user")
 @Entity
@@ -48,21 +50,21 @@ public class User implements UserDetails {
     private UserStatus userStatus;
 
 
-    @ManyToMany(fetch = FetchType.EAGER,
-            cascade = {
-                    CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH
-            }
+    @ManyToMany(
+            fetch = FetchType.EAGER,
+            cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH}
     )
     @JoinTable(
             joinColumns = @JoinColumn(name = "User_id"),
             inverseJoinColumns = @JoinColumn(name = "Role_id")
     )
-    List<Role> roles;
+    Set<Role> roles;
 
 
 
 
     @Override
+    @JsonIgnore
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> authorities = new ArrayList<>();
         for(Role role: roles){

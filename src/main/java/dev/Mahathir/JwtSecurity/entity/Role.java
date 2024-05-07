@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -20,7 +19,6 @@ public class Role {
     private String description;
 
     @JsonIgnore
-
     @ManyToMany(fetch = FetchType.LAZY,
                 cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH }
     )

@@ -8,12 +8,13 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class AuthenticationResponse{
     private String token;
-    private List<Role> roles;
+    private Set<Role> roles;
     LocalDateTime sessionStartDateTime;
 }
