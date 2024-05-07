@@ -50,8 +50,12 @@ public class User implements UserDetails {
 
     @ManyToMany(fetch = FetchType.EAGER,
             cascade = {
-                    CascadeType.PERSIST, CascadeType.MERGE
+                    CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH
             }
+    )
+    @JoinTable(
+            joinColumns = @JoinColumn(name = "User_id"),
+            inverseJoinColumns = @JoinColumn(name = "Role_id")
     )
     List<Role> roles;
 
