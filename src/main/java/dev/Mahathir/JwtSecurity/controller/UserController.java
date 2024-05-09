@@ -31,7 +31,6 @@ public class UserController {
     @PostMapping("deleteUser/{id}")
     public ResponseEntity<String> deleteUserById(@PathVariable("id") Integer id){
         return userCrudService.deleteUserById(id);
-
     }
 
     @PostMapping("editUser/{id}")
