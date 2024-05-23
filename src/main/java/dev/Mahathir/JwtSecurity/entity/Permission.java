@@ -1,8 +1,11 @@
 package dev.Mahathir.JwtSecurity.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Value;
+
+import java.util.Set;
 
 @Entity
 @Data

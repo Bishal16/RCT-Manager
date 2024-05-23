@@ -15,8 +15,6 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
-//
-@SuppressWarnings("CallToPrintStackTrace")
 @SpringBootApplication
 @EnableDiscoveryClient
 public class RtcMain {
@@ -34,7 +32,7 @@ public class RtcMain {
 	public static void main(String[] args) {
 		ApplicationContext applicationContext = SpringApplication.run(RtcMain.class, args);
 		RtcMain app = applicationContext.getBean(RtcMain.class);
-		app.scheduleProcess(applicationContext, app);
+		//app.scheduleProcess(applicationContext, app);
 	}
 
 

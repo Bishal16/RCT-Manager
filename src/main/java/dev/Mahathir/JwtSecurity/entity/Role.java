@@ -20,11 +20,7 @@ public class Role {
 
     @JsonIgnore
     @ManyToMany(fetch = FetchType.LAZY,
-                cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH }
-    )
-    @JoinTable(
-            joinColumns = @JoinColumn(name = "Role_id"),
-            inverseJoinColumns = @JoinColumn(name = "Permission_id")
+                cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH}
     )
     private Set<Permission> permissions;
 

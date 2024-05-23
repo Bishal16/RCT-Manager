@@ -2,7 +2,6 @@ package dev.Mahathir.JwtSecurity.config;
 
 import dev.Mahathir.JwtSecurity.repo.TokenBlackListRepo;
 import dev.Mahathir.JwtSecurity.repo.UserInfoRepo;
-import dev.Mahathir.JwtSecurity.service.TokenBlackListService;
 import dev.Mahathir.JwtSecurity.service.TokenBlacklistChecker;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,7 +24,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-import org.springframework.util.AntPathMatcher;
 
 @Configuration
 @EnableWebSecurity
@@ -54,7 +52,9 @@ public class SecurityConfiguration {
                         AntPathRequestMatcher
                                 .antMatcher("/auth/**")
                 ).permitAll()
-                .requestMatchers(AntPathRequestMatcher.antMatcher("/getRoles2")).hasRole("ADMIN")//--------------
+                .requestMatchers(
+                        AntPathRequestMatcher.antMatcher("/getRoles2")
+                ).hasRole("ADMIN")//---------------------------------------------------------------role based filter
                 .anyRequest().authenticated()
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)

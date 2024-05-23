@@ -8,7 +8,9 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -35,11 +37,13 @@ public class RoleCrudService {
         return new ResponseEntity<>(roleRepository.findAll(), HttpStatus.OK);
     }
 
+    @Transactional
     public ResponseEntity<String> deleteRole(Integer id) {
         try{
-            if(roleRepository.findById(id).isEmpty()) throw new Exception("No role exists with this id");
-            roleRepository.deleteById(id);
-            return new ResponseEntity<>("Role Deleted", HttpStatus.OK);
+                Role role = roleRepository.findById(id).orElseThrow(() -> new Exception("Role not found"));
+
+                roleRepository.delete(role);
+                return new ResponseEntity<>("Role Deleted", HttpStatus.OK);
         }catch (Exception e) {
             System.err.println(e.getMessage());
             return new ResponseEntity<>("Failed", HttpStatus.BAD_REQUEST);
@@ -62,6 +66,8 @@ public class RoleCrudService {
             roleRepository.save(validRole);
 
             return new ResponseEntity<>("Success", HttpStatus.OK);
+
+
         }catch (Exception e){
             System.err.println(e.getMessage());
             return new ResponseEntity<>("Failed", HttpStatus.BAD_REQUEST);
