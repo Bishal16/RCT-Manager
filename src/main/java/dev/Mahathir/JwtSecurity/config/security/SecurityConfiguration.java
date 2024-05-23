@@ -1,4 +1,4 @@
-package dev.Mahathir.JwtSecurity.config;
+package dev.Mahathir.JwtSecurity.config.security;
 
 import dev.Mahathir.JwtSecurity.repo.TokenBlackListRepo;
 import dev.Mahathir.JwtSecurity.repo.UserInfoRepo;

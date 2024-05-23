@@ -1,6 +1,5 @@
-package dev.Mahathir.JwtSecurity.config;
+package dev.Mahathir.JwtSecurity.config.security;
 
-import dev.Mahathir.JwtSecurity.service.TokenBlackListService;
 import dev.Mahathir.JwtSecurity.service.TokenBlacklistChecker;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

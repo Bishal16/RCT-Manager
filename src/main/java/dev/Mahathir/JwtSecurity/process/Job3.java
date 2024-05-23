@@ -1,10 +1,8 @@
 package dev.Mahathir.JwtSecurity.process;
 
-import dev.Mahathir.JwtSecurity.config.JwtService;
+import dev.Mahathir.JwtSecurity.config.security.JwtService;
 import dev.Mahathir.JwtSecurity.entity.TokenBlacklist;
 import dev.Mahathir.JwtSecurity.repo.TokenBlackListRepo;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import org.quartz.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -12,8 +10,6 @@ import org.springframework.scheduling.quartz.JobDetailFactoryBean;
 import org.springframework.scheduling.quartz.SimpleTriggerFactoryBean;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 

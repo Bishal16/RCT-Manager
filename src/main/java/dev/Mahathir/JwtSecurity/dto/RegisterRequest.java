@@ -1,4 +1,4 @@
-package dev.Mahathir.JwtSecurity.controller.dto;
+package dev.Mahathir.JwtSecurity.dto;
 
 import dev.Mahathir.JwtSecurity.entity.Role;
 import lombok.AllArgsConstructor;

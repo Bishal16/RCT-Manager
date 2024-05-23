@@ -1,4 +1,4 @@
-package dev.Mahathir.JwtSecurity.config;
+package dev.Mahathir.JwtSecurity.config.security;
 
 import dev.Mahathir.JwtSecurity.entity.User;
 import io.jsonwebtoken.Claims;
@@ -11,8 +11,6 @@ import org.springframework.stereotype.Service;
 
 import java.security.Key;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.function.Function;
 @Service
 public class JwtService {

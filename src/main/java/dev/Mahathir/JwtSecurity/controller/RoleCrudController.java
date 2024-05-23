@@ -1,6 +1,6 @@
 package dev.Mahathir.JwtSecurity.controller;
 
-import dev.Mahathir.JwtSecurity.controller.dto.PermissionListRequest;
+import dev.Mahathir.JwtSecurity.dto.PermissionListRequest;
 import dev.Mahathir.JwtSecurity.entity.Role;
 import dev.Mahathir.JwtSecurity.service.RoleCrudService;
 import lombok.AllArgsConstructor;

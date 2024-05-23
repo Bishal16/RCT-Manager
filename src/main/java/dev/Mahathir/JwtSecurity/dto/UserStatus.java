@@ -1,4 +1,4 @@
-package dev.Mahathir.JwtSecurity.controller.dto;
+package dev.Mahathir.JwtSecurity.dto;
 
 public enum UserStatus {
     ACTIVE,

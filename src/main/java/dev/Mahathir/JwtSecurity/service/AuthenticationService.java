@@ -1,13 +1,13 @@
 package dev.Mahathir.JwtSecurity.service;
 
-import dev.Mahathir.JwtSecurity.controller.dto.AuthenticationRequest;
-import dev.Mahathir.JwtSecurity.controller.dto.AuthenticationResponse;
-import dev.Mahathir.JwtSecurity.controller.dto.RegisterRequest;
+import dev.Mahathir.JwtSecurity.dto.AuthenticationRequest;
+import dev.Mahathir.JwtSecurity.dto.AuthenticationResponse;
+import dev.Mahathir.JwtSecurity.dto.RegisterRequest;
 import dev.Mahathir.JwtSecurity.entity.Role;
 import dev.Mahathir.JwtSecurity.repo.RoleRepository;
 import dev.Mahathir.JwtSecurity.repo.UserInfoRepo;
 import dev.Mahathir.JwtSecurity.entity.User;
-import dev.Mahathir.JwtSecurity.config.JwtService;
+import dev.Mahathir.JwtSecurity.config.security.JwtService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

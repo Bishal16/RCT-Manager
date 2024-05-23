@@ -1,11 +1,10 @@
 package dev.Mahathir.JwtSecurity.controller;
 
-import dev.Mahathir.JwtSecurity.controller.dto.AuthenticationRequest;
-import dev.Mahathir.JwtSecurity.controller.dto.AuthenticationResponse;
-import dev.Mahathir.JwtSecurity.controller.dto.RegisterRequest;
+import dev.Mahathir.JwtSecurity.dto.AuthenticationRequest;
+import dev.Mahathir.JwtSecurity.dto.AuthenticationResponse;
+import dev.Mahathir.JwtSecurity.dto.RegisterRequest;
 import dev.Mahathir.JwtSecurity.service.AuthenticationService;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

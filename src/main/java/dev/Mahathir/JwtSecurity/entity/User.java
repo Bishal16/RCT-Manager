@@ -1,13 +1,12 @@
 package dev.Mahathir.JwtSecurity.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import dev.Mahathir.JwtSecurity.controller.dto.UserStatus;
+import dev.Mahathir.JwtSecurity.dto.UserStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
