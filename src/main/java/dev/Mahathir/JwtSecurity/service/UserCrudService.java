@@ -35,7 +35,7 @@ public class UserCrudService {
             existingUser.setLastName(user.getLastName());
             existingUser.setPhoneNo(user.getPhoneNo());
             existingUser.setUserStatus(user.getUserStatus());
-            existingUser.setPassword(user.getPassword());
+            //existingUser.setPassword(user.getPassword());
 
             userRepo.save(existingUser);
 

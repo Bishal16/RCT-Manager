@@ -2,7 +2,6 @@ package dev.Mahathir.JwtSecurity.config;
 
 import dev.Mahathir.JwtSecurity.repo.TokenBlackListRepo;
 import dev.Mahathir.JwtSecurity.repo.UserInfoRepo;
-import dev.Mahathir.JwtSecurity.service.TokenBlackListService;
 import dev.Mahathir.JwtSecurity.service.TokenBlacklistChecker;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -53,6 +52,9 @@ public class SecurityConfiguration {
                         AntPathRequestMatcher
                                 .antMatcher("/auth/**")
                 ).permitAll()
+                .requestMatchers(
+                        AntPathRequestMatcher.antMatcher("/getRoles2")
+                ).hasRole("ADMIN")//---------------------------------------------------------------role based filter
                 .anyRequest().authenticated()
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)

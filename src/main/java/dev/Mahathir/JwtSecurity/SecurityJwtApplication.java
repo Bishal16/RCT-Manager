@@ -8,7 +8,6 @@ import org.springframework.context.annotation.PropertySource;
 //
 @SpringBootApplication
 @EnableDiscoveryClient
-//@PropertySource("classpath:application-db.properties")
 public class SecurityJwtApplication {
 
 	public static void main(String[] args) {
